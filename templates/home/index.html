@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+
+{% block content %}
+<div class="row">
+    {% for movie in movies %}
+        <div class="col-md-3">
+            <div class="thumbnail">
+                <img style="height:200px;" src="{{ MEDIA_URL }}images/{{ movie.movie_sort }}.jpg" alt="{{ movie.movie_name }}">
+                <div class="caption">
+                    <label>{{ movie.movie_name|truncatechars:9 }}</label>
+                    <a href="{% url 'movieinfo' movie.id %}" class="btn btn-info btn-xs" role="button">详情</a>
+                    <label>评分：{{ movie.rating }}</label>
+                    <p>{{ movie.short }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+        </div>
+        <div class="col-md5">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        相关推荐
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {% for movie in movies1 %}
+                        <div class="movie-item">
+                            <div class="movie-title">{{ movie.movie_name|truncatechars:9 }}
+                                        评分:{{ movie.rating }}</div>
+                            <div class="movie-summary">{{ movie.informations|truncatechars:120 }}</div>
+                            <a href="{% url 'movieinfo' movie.id %}" class="btn-success">查看详情</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="text-center">
+    <ul class="pagination">
+        {% if movies.has_previous %}
+        <li><a href="?page=1">&laquo; first</a></li>
+        <li><a href="?page={{ movies.previous_page_number }}">previous</a></li>
+        {% endif %}
+
+        {% for i in movies.paginator.page_range %}
+            {% if movies.number == i %}
+            <li class="active"><a>{{ i }} <span class="sr-only">(current)</span></a></li>
+            {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if movies.has_next %}
+        <li><a href="?page={{ movies.next_page_number }}">next</a></li>
+        <li><a href="?page={{ movies.paginator.num_pages }}">last &raquo;</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}
+
+

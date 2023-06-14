@@ -1,0 +1,22 @@
+.pagination {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination li {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+}
+
+.pagination li.active a {
+    color: #fff;
+    background-color: #428bca;
+    border: 1px solid #428bca;
+}
+
+.pagination li a:hover:not(.active) {
+    color: #428bca;
+    border: 1px solid #ddd;
+}

@@ -1,0 +1,10 @@
+{%extends 'base.html'%}
+{%block content%}
+    <div class="row">
+        <img src="{{ MEDIA_URL }}images/{{mv.movie_sort}}.jpg" style="height:300px">
+        <h1>电影名字：{{mv.movie_name}}</h1>
+        <h3>评分:{{mv.rating}}</h3>
+        <h3>介绍：{{mv.informations}}</h3>
+        <h3>地址：<a target="_blank" href={{mv.url}}>{{mv.url}}</a></h3>
+    </div>
+{%endblock%}
